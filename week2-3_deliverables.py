@@ -61,6 +61,22 @@ print(sold_flagged)
 print('\nListings columns with >90% missing:')
 print(listing_flagged)
 
+# Sold columns dropped (>90% missing):
+# WaterfrontYN (99.94%), BasementYN (98.04%), FireplacesTotal (100%), 
+# AboveGradeFinishedArea (100%), TaxAnnualAmount (100%), BuilderName (95.04%),
+# TaxYear (100%), BuildingAreaTotal (92.90%), ElementarySchoolDistrict (100%),
+# CoBuyerAgentFirstName (90.87%), BelowGradeFinishedArea (99.40%),
+# BusinessType (100%), CoveredSpaces (100%), LotSizeDimensions (95.10%),
+# MiddleOrJuniorSchoolDistrict (100%)
+
+# Listing columns dropped (>90% missing):
+# FireplacesTotal (100%), AboveGradeFinishedArea (100%), TaxAnnualAmount (100%),
+# BuilderName (95.39%), BuyerAgencyCompensationType (91.32%),
+# BuyerAgencyCompensation (91.32%), TaxYear (100%), BusinessType (100%),
+# ElementarySchoolDistrict (100%), CoveredSpaces (100%),
+# MiddleOrJuniorSchoolDistrict (100%), BelowGradeFinishedArea (99%),
+# LotSizeDimensions (95%), WaterfrontYN (99%), BasementYN (98%)
+
 sold_cleaned = sold.drop(columns=sold_flagged.index)
 listing_cleaned = listings.drop(columns=listing_flagged.index)
 
