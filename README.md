@@ -91,6 +91,10 @@ Python 3.x
 
 Install required packages:
 
+pip install requests pandas
+python crmls_listed.py
+python crmls_sold.py
+
 ---
 
 ## Running the Scripts
