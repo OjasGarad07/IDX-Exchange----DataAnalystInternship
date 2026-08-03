@@ -2,7 +2,7 @@
 
 This repository contains work from my Data Analyst internship at IDX Exchange, where I pulled CRMLS listing and sold transaction data from the CoreLogic Trestle API, built market analytics pipelines in Python, and created Tableau dashboards to surface real estate market insights.
 
-**Tech Stack:** Python (pandas), CoreLogic Trestle API, FRED API, Tableau Desktop
+**Tech Stack:** Python (pandas), CoreLogic Trestle API, FRED API, Tableau Desktop, geopandas
 
 **Data Source:** CRMLS (California Regional Multiple Listing Service) via the CoreLogic Trestle API
 
@@ -83,106 +83,6 @@ This repository contains work from my Data Analyst internship at IDX Exchange, w
   - sold_week4_5.csv
   - listings_week4_5.csv
 
----
-
-## Requirements
-
-Python 3.x
-
-Install required packages:
-
-```
-pip install requests pandas
-```
-
-```
-python crmls_listed.py
-```
-
-```
-python crmls_sold.py
-```
-
----
-
-## Running the Scripts
-
-### Generating Monthly Listing Data
-
-Update the date filter and output filename in crmls_listed.py:
-
-```python
-'$filter': f"ListingContractDate ge 2026-05-01T00:00:00Z and ListingContractDate lt 2026-06-01T00:00:00Z"
-csv_file = 'CRMLSListing202605.csv'
-```
-
-Then run:
-
-### Generating Monthly Sold Data
-
-Update the date filter and output filename in crmls_sold.py:
-
-```python
-'$filter': f"MlsStatus eq 'Closed' and CloseDate ge 2026-05-01T00:00:00Z and CloseDate lt 2026-06-01T00:00:00Z"
-csv_file = 'CRMLSSold202605.csv'
-```
-
-Then run:
-
----
-
-## Output Files
-
-| File | Description |
-|------|-------------|
-| CRMLSListingYYYYMM.csv | Monthly listing extract |
-| CRMLSSoldYYYYMM.csv | Monthly sold extract |
-| CRMLSListingCombined.csv | All residential listings combined |
-| CRMLSSoldCombined.csv | All residential sold transactions combined |
-| sold_eda.csv | Sold dataset with >90% null columns removed |
-| listing_eda.csv | Listing dataset with >90% null columns removed |
-| sold_with_rates.csv | Sold dataset enriched with monthly mortgage rates |
-| listing_with_rates.csv | Listing dataset enriched with monthly mortgage rates |
-| sold_clean.csv | Sold dataset after full cleaning pipeline |
-| listings_clean.csv | Listing dataset after full cleaning pipeline |
-| sold_week4_5.csv | Final sold dataset with date and geographic flags |
-| listings_week4_5.csv | Final listing dataset with date and geographic flags |
-
----
-
-## Key EDA Findings (Weeks 2-3)
-
-**Dataset Size**
-- Sold: 350,179 rows, 82 columns (67 after dropping high-null columns)
-- Listings: 512,665 rows, 84 columns (69 after dropping high-null columns)
-
-**Missing Value Summary**
-- 15 columns dropped from sold dataset, 15 from listing dataset, all with more than 90% missing values
-- Notable dropped columns: WaterfrontYN (99.94%), FireplacesTotal (100%), TaxYear (100%), ElementarySchoolDistrict (100%)
-
-**Numeric Field Observations**
-- Median close price: $820,000 — median preferred over mean due to heavy skew from outliers (max $989.5M)
-- Median days on market: 19 days — mean of 38.5 days inflated by extreme outliers
-- 38.85% of homes sold above list price, 61.15% at or below
-- Top counties by median close price: San Mateo ($1.68M), Santa Clara ($1.59M), Santa Cruz ($1.2M)
-
-**Date Consistency Issues**
-- 55 records where ListingContractDate is after CloseDate
-- 189 records where PurchaseContractDate is after CloseDate
-- Flagged for handling in Weeks 4-5
-
-**Mortgage Rate Enrichment**
-- 30-year fixed mortgage rate data fetched from FRED (MORTGAGE30US series)
-- Weekly rates resampled to monthly averages and merged onto both datasets
-- Zero null mortgage rate values after merge confirming a complete join
-
-**Data Cleaning Results (Weeks 4-5)**
-- Sold: 349,271 final rows after cleaning (removed 908 invalid records)
-- Listings: 510,545 final rows after cleaning (removed 2,120 invalid records)
-- Geographic flags: 15,782 sold records and 71,214 listing records with missing coordinates
-
----
-
 ### Week 6 — Feature Engineering & Market Metrics
 
 **week6_deliverables.py**
@@ -205,18 +105,14 @@ Then run:
   - sold_week6.csv
   - listings_week6.csv
 
-| sold_week6.csv | Sold dataset with engineered metrics and school district assignments |
-| listings_week6.csv | Listing dataset with school district assignments |
+---
 
+## Requirements
 
-**Feature Engineering Results (Week 6)**
-- Top listing office by sales volume: Compass ($45.1B)
-- Top buyer office by sales volume: Compass ($41.4B)
-- Top county by median close price: San Mateo ($1.68M)
-- Top property subtype by median close price: Farm ($1.425M), SingleFamilyResidence ($887.5K)
-- 254,364 sold properties and 337,516 listing properties successfully assigned a school district
-- Also install geopandas for Week 6: `pip install geopandas`
+Python 3.x
 
+Install required packages:
 
-
-*This repository is maintained throughout my IDX Exchange internship to document project progress and track individual contributions.*
+```
+pip install requests pandas
+```
