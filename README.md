@@ -183,4 +183,40 @@ Then run:
 
 ---
 
+### Week 6 — Feature Engineering & Market Metrics
+
+**week6_deliverables.py**
+- Loads the cleaned datasets from Weeks 4-5
+- Converts date fields to datetime format
+- Engineers key market metrics:
+  - `price_ratio` — ClosePrice / OriginalListPrice
+  - `price_per_sqft` — ClosePrice / LivingArea
+  - `close_to_original_list_ratio` — ClosePrice / OriginalListPrice
+  - `listing_to_contract_days` — days from listing date to accepted offer
+  - `contract_to_close_days` — days from accepted offer to close (escrow period)
+  - `Year`, `Month`, `YrMo` — time series variables derived from CloseDate
+- Segment analysis grouped by:
+  - PropertyType and PropertySubType
+  - CountyOrParish and MLSAreaMajor
+  - ListOfficeName and BuyerOfficeName (competitive intelligence)
+- Downloads California school district boundary GeoJSON from the California government open data portal
+- Performs spatial join using geopandas to assign each property a school district based on its latitude and longitude coordinates
+- Saves final datasets as:
+  - sold_week6.csv
+  - listings_week6.csv
+
+| sold_week6.csv | Sold dataset with engineered metrics and school district assignments |
+| listings_week6.csv | Listing dataset with school district assignments |
+
+
+**Feature Engineering Results (Week 6)**
+- Top listing office by sales volume: Compass ($45.1B)
+- Top buyer office by sales volume: Compass ($41.4B)
+- Top county by median close price: San Mateo ($1.68M)
+- Top property subtype by median close price: Farm ($1.425M), SingleFamilyResidence ($887.5K)
+- 254,364 sold properties and 337,516 listing properties successfully assigned a school district
+- Also install geopandas for Week 6: `pip install geopandas`
+
+
+
 *This repository is maintained throughout my IDX Exchange internship to document project progress and track individual contributions.*
