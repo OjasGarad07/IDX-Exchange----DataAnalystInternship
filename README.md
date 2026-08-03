@@ -116,6 +116,10 @@ Install required packages:
 ```
 pip install requests pandas
 ```
+```
+pip install geopandas
+```
+
 ---
 
 ## Running the Scripts
@@ -131,6 +135,10 @@ csv_file = 'CRMLSListing202605.csv'
 
 Then run:
 
+```
+python crmls_listed.py
+```
+
 ### Generating Monthly Sold Data
 
 Update the date filter and output filename in crmls_sold.py:
@@ -141,6 +149,10 @@ csv_file = 'CRMLSSold202605.csv'
 ```
 
 Then run:
+
+```
+python crmls_sold.py
+```
 
 ---
 
